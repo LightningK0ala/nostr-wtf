@@ -2146,6 +2146,9 @@ a.card:hover {
 .w-5 {
   width: 1.25rem;
 }
+.w-96 {
+  width: 24rem;
+}
 .w-\[240px\] {
   width: 240px;
 }
