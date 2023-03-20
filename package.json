@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"deploy": "node ./gh-pages.js",
+		"deploy": "npm run build; node ./gh-pages.js",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",

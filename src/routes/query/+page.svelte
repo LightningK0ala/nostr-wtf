@@ -115,7 +115,12 @@ TODO:
 		sub.on('event', (event: NostrEvent) => {
 			console.log('event', event);
 			subState = 'receiving';
-			response = [...response, event];
+			try {
+				const parsedContent = JSON.parse(event.content);
+				response = [...response, { ...event, content: parsedContent }];
+			} catch (e) {
+				response = [...response, event];
+			}
 		});
 		sub.on('eose', () => {
 			subState = 'eose';
