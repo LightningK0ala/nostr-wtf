@@ -142,8 +142,8 @@ TODO:
 </script>
 
 <div class="">
-	<div class="grid grid-cols-2 h-screen">
-		<div class="card p-5 col-span-1 overflow-y-auto max-h-screen flex flex-col">
+	<div class="md:grid md:grid-cols-2 h-screen">
+		<div class="card p-5 col-span-1 md:overflow-y-auto md:max-h-screen flex flex-col">
 			<div class="space-y-5 flex-1">
 				<p>
 					Query nostr relays using <a href="https://github.com/nbd-wtf/nostr-tools">nostr-tools</a> filters.
@@ -207,11 +207,11 @@ TODO:
 				{#if isQueryStrValid && query.length > 0}
 					<CodeBlock language="json" code={formattedQuery} />
 				{/if}
-			</div>
-			<div class="text-xs flex justify-center">
-				Made with 🐨 by &nbsp;<a href="https://twitter.com/LightningK0ala" target="_blank"
-					>Lightning K0ala</a
-				>
+				<div class="text-xs flex justify-center pt-5">
+					Made with 🐨 by &nbsp;<a href="https://twitter.com/LightningK0ala" target="_blank"
+						>Lightning K0ala</a
+					>
+				</div>
 			</div>
 		</div>
 		{#if response.length > 0}
