@@ -17,7 +17,7 @@
 		<link rel="modulepreload" href="./_app/immutable/chunks/index.a0bde444.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/ProgressBar.svelte_svelte_type_style_lang.6ef68b51.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/stores.a95e60f1.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/_page.svelte.7f0e7586.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/query-page.svelte.7be6544a.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/nostr.f722d3f7.js">
 	</head>
 	<body data-theme="gold-nouveau">
@@ -42,17 +42,27 @@
 	
 	
 	
-	<div class="flex flex-col h-screen w-screen sm:items-center sm:justify-center p-5"><div class="flex-1 space-y-5 w-full max-w-[800px]"><h1 class="gradient-heading">Nostr WTF</h1>
-		<p>Convert your nostr keys between hex, npub and nprofile formats. 🔑 🔁 🗝️</p>
-		<p>Note that converting into nprofile doesn&#39;t include relays.</p>
-		<label class="label mt-2"><input class="input text-center w-full" type="text" placeholder="Paste hex, npub or nprofile key here" value=""></label>
+	
 
-		<h3>Result</h3>
-			<div class="flex flex-col sm:flex-row sm:space-x-3 space-y-3 sm:space-y-0"><div class="card flex-1"><div class="p-5 select-all break-all"><!-- HTML_TAG_START -->82341f882b6eabcd2ba7f1ef90aad961cf074af15b9ef44a09f9d2a8fbfbe6a2<!-- HTML_TAG_END -->
-						</div></div>
-					<button type="button" class="btn variant-filled-primary" >Copy</button>
-				</div></div>
-	<div class="text-center p-5 mt-5">Made with 🐨 by <a href="https://twitter.com/LightningK0ala" target="_blank">Lightning K0ala</a></div></div>
+
+<div class=""><div class="md:grid md:grid-cols-2 h-screen"><div class="card p-5 col-span-1 md:overflow-y-auto md:max-h-screen flex flex-col"><div class="space-y-5 flex-1"><p>Query nostr relays using <a href="https://github.com/nbd-wtf/nostr-tools">nostr-tools</a> filters.
+				</p>
+				
+				<label class="label"><span>1. Pick Relay:</span>
+					<div class="flex"><input spellcheck="false" class="input" type="text" placeholder="eg. wss://nos.lol" value="">
+	</div>
+
+					</label>
+				<label><span>2. Filters:</span>
+					<textarea rows="5" spellcheck="false" class="input" placeholder="eg. [{&quot;kinds&quot;: [0]}]"></textarea>
+					</label>
+				<div class="text-center"><button class="text-tertiary-500 hover:text-tertiary-400">Paste example filters</button></div>
+				<button disabled type="button" class="btn variant-filled w-full">▶️   Run query</button>
+				
+				
+				<div class="text-xs flex justify-center pt-5">Made with 🐨 by  <a href="https://twitter.com/LightningK0ala" target="_blank">Lightning K0ala</a></div></div></div>
+		<div class="flex flex-col items-center justify-center flex-1 p-10">Magic will happen here ✨
+			</div></div></div>
 	</main>
 
 			
@@ -81,7 +91,7 @@
 						import("./_app/immutable/entry/app.bd60ba59.js")
 					]).then(([kit, app]) => {
 						kit.start(app, __sveltekit_6okldp.element, {
-							node_ids: [0, 2],
+							node_ids: [0, 3],
 							data,
 							form: null,
 							error: null
