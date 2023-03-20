@@ -243,7 +243,9 @@ TODO:
 				</Accordion>
 			</div>
 		{:else}
-			<div class="flex flex-col items-center justify-center flex-1">Magic will happen here ✨</div>
+			<div class="flex flex-col items-center justify-center flex-1 p-10">
+				Magic will happen here ✨
+			</div>
 		{/if}
 	</div>
 </div>
