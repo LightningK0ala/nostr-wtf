@@ -6,7 +6,7 @@
 	$: input = '';
 	$: pk = '';
 	$: npub = '';
-	$: result = [] as string[];
+	$: result = ['82341f882b6eabcd2ba7f1ef90aad961cf074af15b9ef44a09f9d2a8fbfbe6a2'] as string[];
 	$: nprofile = '';
 	$: relays = [];
 	$: copied = [] as string[];
@@ -83,43 +83,45 @@
 	}
 </script>
 
-<div class="flex flex-col h-screen w-screen items-center justify-center space-y-5">
-	<h1 class="gradient-heading">Nostr WTF</h1>
-	<p>Convert your nostr keys</p>
-	<p>🔑</p>
-	<label class="label mt-2">
-		<input
-			bind:value={input}
-			on:input={onInputPk}
-			class="w-96 input text-center"
-			type="text"
-			placeholder="Paste hex, npub or nprofile key here"
-		/>
-	</label>
+<div class="flex flex-col h-screen w-screen sm:items-center sm:justify-center p-5">
+	<div class="flex-1 space-y-5 w-full max-w-[800px]">
+		<h1 class="gradient-heading">Nostr WTF</h1>
+		<p>Convert your nostr keys between hex, npub and nprofile formats. 🔑 🔁 🗝️</p>
+		<p>Note that converting into nprofile doesn't include relays.</p>
+		<label class="label mt-2">
+			<input
+				bind:value={input}
+				on:input={onInputPk}
+				class="input text-center w-full"
+				type="text"
+				placeholder="Paste hex, npub or nprofile key here"
+			/>
+		</label>
 
-	<h3>Result</h3>
-	{#if hasError || result.length == 0}
-		😢
-	{:else}
-		{#each result as r}
-			<div class="flex space-x-3">
-				<div class="card">
-					<div class="p-5 select-all">
-						{@html r}
+		{#if hasError}
+			Error 😢
+		{:else if result.length > 0}
+			<h3>Result</h3>
+			{#each result as r}
+				<div class="flex flex-col sm:flex-row sm:space-x-3 space-y-3 sm:space-y-0">
+					<div class="card flex-1">
+						<div class="p-5 select-all break-all">
+							{@html r}
+						</div>
 					</div>
+					<button
+						type="button"
+						class="btn variant-filled-primary"
+						on:click={() => onCopy(r)}
+						use:clipboard={r}
+						disabled={copied.includes(r)}
+					>
+						{copied.includes(r) ? 'Copied' : 'Copy'}
+					</button>
 				</div>
-				<button
-					type="button"
-					class="btn variant-filled"
-					on:click={() => onCopy(r)}
-					use:clipboard={r}
-					disabled={copied.includes(r)}
-				>
-					{copied.includes(r) ? 'Copied 👍' : 'Copy'}
-				</button>
-			</div>
-		{/each}
-	{/if}
+			{/each}
+		{/if}
+	</div>
 	<div class="text-center p-5 mt-5">
 		Made with 🐨 by <a href="https://twitter.com/LightningK0ala" target="_blank">Lightning K0ala</a>
 	</div>
