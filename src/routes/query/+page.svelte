@@ -4,11 +4,11 @@ TODO:
 -->
 <script lang="ts">
 	import { Accordion, AccordionItem, CodeBlock, SlideToggle } from '@skeletonlabs/skeleton';
-	import { relayInit, type Relay, type Sub, type Event } from 'nostr-tools';
+	import { relayInit, type Relay, type Sub, type Event as NostrEvent } from 'nostr-tools';
 	import { onMount } from 'svelte';
 	import debounce from 'just-debounce-it';
-
-	const RELAYS = ['wss://nos.lol'];
+	import SearchSelect from '$components/SearchSelect.svelte';
+	import { RELAYS } from '$lib/constants';
 
 	type RelayState = 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
 	type SubState = 'unsubscribed' | 'subscribed' | 'receiving' | 'eose';
@@ -17,7 +17,7 @@ TODO:
 	$: state = 'disconnected' as RelayState;
 	$: accordionAutoExpand = true;
 	$: accordionOpenAll = true;
-	$: response = [] as Event[];
+	$: response = [] as NostrEvent[];
 	$: query = '';
 	$: sub = undefined as Sub | undefined;
 	$: exampleFilters = `[{"authors": ["63c3f814e38f0b5bd64515a063791a0fdfd5b276a31bae4856a16219d8aa0d1f"], "kinds": [0]}]`;
@@ -38,6 +38,7 @@ TODO:
 
 	function setupRelay() {
 		try {
+			console.log('Setting up relay', relayUrl);
 			relay = relayInit(relayUrl);
 			relay.on('connect', () => {
 				state = 'connected';
@@ -111,7 +112,7 @@ TODO:
 		response = [];
 		sub = relay.sub(parsedQuery);
 		subState = 'subscribed';
-		sub.on('event', (event: Event) => {
+		sub.on('event', (event: NostrEvent) => {
 			console.log('event', event);
 			subState = 'receiving';
 			response = [...response, event];
@@ -121,6 +122,23 @@ TODO:
 			console.log('eose');
 		});
 	}
+
+	function onInputRelay(e: Event) {
+		const value = (e.target as HTMLInputElement).value;
+		relayUrl = value;
+		reconnect();
+	}
+
+	function onSelectRelay(e: Event) {
+		const value = (e.target as HTMLInputElement).value;
+		relayUrl = value;
+		reconnect();
+	}
+
+	function reset() {
+		relayUrl = '';
+		disconnect();
+	}
 </script>
 
 <div class="">
@@ -128,50 +146,34 @@ TODO:
 		<div class="card p-5 col-span-1 overflow-y-auto max-h-screen flex flex-col">
 			<div class="space-y-5 flex-1">
 				<p>
-					This is a simple tool to query nostr relays using <a
-						href="https://github.com/nbd-wtf/nostr-tools">nostr-tools</a
-					> filters formatted as json.
+					Query nostr relays using <a href="https://github.com/nbd-wtf/nostr-tools">nostr-tools</a> filters.
 				</p>
+				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
 					<span>1. Pick Relay:</span>
-					<select bind:value={relayUrl} on:change={reconnect} class="select">
-						{#each RELAYS as r}
-							<option value="">Select Relay</option>
-							<option value={r}>{r}</option>
-						{/each}
-					</select>
-				</label>
-				<label class="label">
-					<span>2. Specify relay URL (optional):</span>
-					<input
-						bind:value={relayUrl}
-						on:input={reconnect}
-						spellcheck="false"
-						class="input"
-						type="text"
-						placeholder="eg. wss://nos.lol"
+					<SearchSelect
+						onSelect={onSelectRelay}
+						onInput={onInputRelay}
+						onCancel={reset}
+						options={RELAYS}
+						value={relayUrl}
 					/>
 					{#if state == 'connected'}
 						<p class="text-green-400">🌍 Connected</p>
-					{:else if state == 'disconnected' || state == 'disconnecting'}
+					{:else if relayUrl.length > 0 && (state == 'disconnected' || state == 'disconnecting')}
 						<p class="text-red-400">❌ Not connected</p>
 					{:else if state == 'connecting'}
 						<p>Connecting...</p>
 					{/if}
 				</label>
 				<label>
-					<span>Filters:</span>
+					<span>2. Filters:</span>
 					<textarea
 						rows="5"
 						bind:value={query}
 						spellcheck="false"
 						class="input"
-						placeholder={`Paste your nostr-tools filters in json format eg.
-[
-    {
-        "authors": ["63c3f814e38f0b5bd64515a063791a0fdfd5b276a31bae4856a16219d8aa0d1f"]
-    }
-]`}
+						placeholder={`eg. [{"kinds": [0]}]`}
 					/>
 					{#if query && !isQueryStrValid}
 						<p class="text-red-400">Invalid json format</p>
@@ -180,7 +182,7 @@ TODO:
 				<div class="text-center">
 					<button
 						class="text-tertiary-500 hover:text-tertiary-400"
-						on:click={useExampleQueryFilters}>Paste example query filters</button
+						on:click={useExampleQueryFilters}>Paste example filters</button
 					>
 				</div>
 				{#if subState == 'receiving'}
@@ -202,7 +204,7 @@ TODO:
 				{:else if subState == 'eose'}
 					<p class="text-green-400">🎉 Finished</p>
 				{/if}
-				{#if isQueryStrValid}
+				{#if isQueryStrValid && query.length > 0}
 					<CodeBlock language="json" code={formattedQuery} />
 				{/if}
 			</div>

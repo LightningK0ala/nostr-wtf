@@ -14,7 +14,11 @@ const config = {
 			pages: 'build',
 			assets: 'build',
 			fallback: null
-		})
+		}),
+		alias: {
+			"$components": "./src/components",
+			"$lib": "./src/lib",
+		}
 	}
 };
 
