@@ -38,7 +38,6 @@ TODO:
 
 	function setupRelay() {
 		try {
-			console.log('Setting up relay', relayUrl);
 			relay = relayInit(relayUrl);
 			relay.on('connect', () => {
 				state = 'connected';
@@ -151,7 +150,9 @@ TODO:
 		<div class="card p-5 col-span-1 md:overflow-y-auto md:max-h-screen flex flex-col">
 			<div class="space-y-5 flex-1">
 				<p>
-					Query nostr relays using <a href="https://github.com/nbd-wtf/nostr-tools">nostr-tools</a> filters.
+					Query nostr relays using <a target="_blank" href="https://github.com/nbd-wtf/nostr-tools"
+						>nostr-tools</a
+					> filters.
 				</p>
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
