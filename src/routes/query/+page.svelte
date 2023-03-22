@@ -133,8 +133,7 @@ TODO:
 		reconnect();
 	}
 
-	function onSelectRelay(e: Event) {
-		const value = (e.target as HTMLInputElement).value;
+	function onSelectRelay(value: string) {
 		relayUrl = value;
 		reconnect();
 	}
