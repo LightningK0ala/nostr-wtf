@@ -2475,6 +2475,10 @@ a.card:hover {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -3598,6 +3602,13 @@ a.card:hover {
 .dark .hover\:variant-soft:hover {
   color: rgb(var(--color-surface-200));
   background-color: rgb(var(--color-surface-500) / 0.2);
+}
+.hover\:cursor-pointer:hover {
+  cursor: pointer;
+}
+.hover\:bg-surface-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(var(--color-surface-500) / var(--tw-bg-opacity));
 }
 .hover\:text-tertiary-400:hover {
   --tw-text-opacity: 1;
