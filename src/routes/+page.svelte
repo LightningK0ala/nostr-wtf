@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Credits from '$components/Credits.svelte';
 	import { clipboard, Toast, toastStore } from '@skeletonlabs/skeleton';
 	import { nip19 } from 'nostr-tools';
 	import type { ProfilePointer } from 'nostr-tools/lib/nip19';
@@ -122,7 +123,7 @@
 			{/each}
 		{/if}
 	</div>
-	<div class="text-center p-5 mt-5">
-		Made with 🐨 by <a href="https://twitter.com/LightningK0ala" target="_blank">Lightning K0ala</a>
+	<div class="flex flex-col text-center p-5 mt-5">
+		<Credits />
 	</div>
 </div>

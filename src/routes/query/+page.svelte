@@ -9,6 +9,7 @@ TODO:
 	import debounce from 'just-debounce-it';
 	import SearchSelect from '$components/SearchSelect.svelte';
 	import { RELAYS } from '$lib/constants';
+	import Credits from '$components/Credits.svelte';
 
 	type RelayState = 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
 	type SubState = 'unsubscribed' | 'subscribed' | 'receiving' | 'eose';
@@ -212,11 +213,7 @@ TODO:
 				{#if isQueryStrValid && query.length > 0}
 					<CodeBlock language="json" code={formattedQuery} />
 				{/if}
-				<div class="text-xs flex justify-center pt-5">
-					Made with 🐨 by &nbsp;<a href="https://twitter.com/LightningK0ala" target="_blank"
-						>Lightning K0ala</a
-					>
-				</div>
+				<Credits />
 			</div>
 		</div>
 		{#if response.length > 0}
