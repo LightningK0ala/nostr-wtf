@@ -2,7 +2,9 @@
 	<div>
 		Made with 🐨 by <a href="https://twitter.com/LightningK0ala" target="_blank">Lightning K0ala</a>
 		|
-		<a target="_blank" href="https://satellite.earth/@koala@satoshis.place"> Nostr Profile </a>
+		<a target="_blank" href="https://satellite.earth/@koala@satoshis.place">Nostr Profile</a>
+		|
+		<a target="_blank" href="https://github.com/LightningK0ala/nostr-wtf">Github</a>
 		|
 		<a
 			target="_blank"
